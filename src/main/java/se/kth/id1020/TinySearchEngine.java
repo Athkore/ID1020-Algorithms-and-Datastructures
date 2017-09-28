@@ -8,14 +8,14 @@ import se.kth.id1020.util.Document;
 import se.kth.id1020.util.Word;
 
 public class TinySearchEngine implements TinySearchEngineBase {
-	private Node root;
+	private Node root = new Node();
 		
 	private class Node{
-		private Word word;
-		private Attributes[] attributes;
-		private Node[] next;
+		public Word word;
+		public Attributes[] attributes;
+		public Node[] next;
 		public Node() {
-			this.next = new Node[28];
+			this.next = new Node[128];
 			this.attributes = new Attributes[1];
 		}
 		public void setWord(Word word) {
@@ -32,27 +32,28 @@ public class TinySearchEngine implements TinySearchEngineBase {
 		public Document getDocument(int i) {
 			return this.attributes[i].document;
 		}
+		public Node getNext(int i) {
+			return this.next[i];
+		}
+		public void setNext(int i, Node t) {
+			this.next[i] = t;
+			return;
+		}
 	}
 	@Override
 	public void insert(Word word, Attributes attr) {
 		Node r = root;
 		for(int i = 0; i < word.word.length(); i++) 
 		{
-			char c = word.word.charAt(i);
-			int index;
-			if(c == '\'') index = 26;
-			else if(c== '-') index = 27;
-			else index = c-'a';
-			if(c == 0)break;
-			if(r.next[index]==null)
-			{
+			int c = word.word.charAt(i);
+			if(r.next[c] == null){
 				Node t = new Node();
-				r.next[index] = t;
+				r.setNext(c,t);
 				r = t;
 			}
 			else
 			{
-				r = r.next[index];
+				r = r.getNext(c);
 			}
 		}
 		r.setWord(word);
@@ -66,16 +67,14 @@ public class TinySearchEngine implements TinySearchEngineBase {
 		for(int i = 0; i < query.length(); i++) 
 		{
 			char c = query.charAt(i);
-			int index = c-'a';
 			
-			if(r.next[index]==null) 
+			if(r.getNext(c)==null) 
 			{
 				return null;
 			}
-			else r = r.next[index];
+			else r = r.getNext(c);
 		}
 		for(int i = 0; i < r.attributes.length;i++)a.add(r.getDocument(i));
 		return a;
 	}
-
 }

@@ -8,12 +8,6 @@
 	  <groupId>se.kth.id1020</groupId>
 	  <artifactId>tinySearchEngine</artifactId>
 	  <version>1.0</version>
-	  <exclusions>
-	  	<exclusion>
-	  		<groupId>com.aliasi</groupId>
-	  		<artifactId>lingpipe</artifactId>
-	  	</exclusion>
-	  </exclusions>
 	</dependency>
 	<dependency> 
 	  <groupId>edu.princeton.cs.introcs</groupId> 
@@ -24,7 +18,14 @@
 	 <groupId>edu.princeton.cs.introcs</groupId>
 	  <artifactId>stdlib-package</artifactId>
 	  <version>1.0</version> 
-	</dependency> 
+	</dependency>
+
+        <dependency>
+            <groupId>com.aliasi</groupId>
+            <artifactId>lingpipe</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+	 
    </dependencies>
    <repositories>
 	<repository>
