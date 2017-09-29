@@ -2,6 +2,8 @@ package se.kth.id1020;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.FileReader;
 import se.kth.id1020.TinySearchEngineBase;
 import se.kth.id1020.util.Attributes;
 import se.kth.id1020.util.Document;
@@ -9,7 +11,8 @@ import se.kth.id1020.util.Word;
 
 public class TinySearchEngine implements TinySearchEngineBase {
 	private Node root = new Node();
-		
+	FileWriter fw;
+	FileReader fr;
 	private class Node{
 		public Word word;
 		public Attributes[] attributes;
