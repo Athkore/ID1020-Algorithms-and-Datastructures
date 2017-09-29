@@ -15,7 +15,7 @@ public class TinySearchEngine implements TinySearchEngineBase {
 		public Attributes[] attributes;
 		public Node[] next;
 		public Node() {
-			this.next = new Node[128];
+			this.next = new Node[100];
 			this.attributes = new Attributes[1];
 		}
 		public void setWord(Word word) {
@@ -45,7 +45,7 @@ public class TinySearchEngine implements TinySearchEngineBase {
 		Node r = root;
 		for(int i = 0; i < word.word.length(); i++) 
 		{
-			int c = word.word.charAt(i);
+			int c = word.word.charAt(i)-28;
 			if(r.next[c] == null){
 				Node t = new Node();
 				r.setNext(c,t);
@@ -66,7 +66,7 @@ public class TinySearchEngine implements TinySearchEngineBase {
 		List<Document> a = new ArrayList<>();
 		for(int i = 0; i < query.length(); i++) 
 		{
-			char c = query.charAt(i);
+			int c = query.charAt(i)-28;
 			
 			if(r.getNext(c)==null) 
 			{
