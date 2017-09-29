@@ -1,5 +1,6 @@
 package se.kth.id1020;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import se.kth.id1020.util.Attributes;
@@ -63,8 +64,8 @@ public class TinySearchEngineRedBST implements TinySearchEngineBase{
 	        if (x == null) return false;
 	        return x.color == RED;
 	}
-	private int compare(Word a, Word b) {
-		return -1;
+	private int compare(String a, String b) {
+			return a.compareTo(b);
 	}
     // make a left-leaning link lean to the right
     private Node rotateRight(Node h) {
@@ -111,7 +112,7 @@ public class TinySearchEngineRedBST implements TinySearchEngineBase{
 	private Node insert(Node h, Word word, Attributes attr) {
 		if (h == null) return new Node(word, attr, RED, 1);
 
-        int cmp = compare(word, h.word);
+        int cmp = compare(word.word, h.word.word);
         if      (cmp < 0) h.left  = insert(h.left,  word, attr); 
         else if (cmp > 0) h.right = insert(h.right, word, attr); 
         else              
@@ -129,17 +130,20 @@ public class TinySearchEngineRedBST implements TinySearchEngineBase{
     
 	@Override
 	public List<Document> search(String query) {
-		List<Document> list = search();
+		List<Document> list = new ArrayList<>();
+		list = search(root,query, list);
 		return null;
 	}
-    private List<Document> search(Node x, Key key) {
+    private List<Document> search(Node x, String word, List<Document> list) {
         while (x != null) {
-            int cmp = key.compareTo(x.key);
+            int cmp = compare(word, x.word.word);
             if      (cmp < 0) x = x.left;
             else if (cmp > 0) x = x.right;
-            else              return x.val;
+            else{
+            	for (int i = 0; i<x.attributes.length; i++)list.add(x.attributes[i].document);
+            	return list;
+            }
         }
         return null;
     }
-
 }
